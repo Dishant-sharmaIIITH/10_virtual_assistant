@@ -1,0 +1,198 @@
+<html>
+
+<head>
+   <title>Notes page</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/fontawesome.min.css">
+   <!-- <script  src="index.js"></script> -->
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+      </script>
+   <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/style.css')}}">
+</head>
+
+<body class="bg-nav">
+   <header>
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+         <div class="container-fluid">
+            <a class="navbar-brand" href="/dashboard">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+               aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+               <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                  <li class="nav-item">
+                     <a class="nav-link active" aria-current="page" href="/dashboard/notes">Notes</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="/dashboard/gmail">Gmail</a>
+                   </li>
+                  <li class="nav-item">
+                     <a class="nav-link active" href="/dashboard/showReminder" tabindex="-1"
+                        aria-disabled="true">Reminder</a>
+                  </li>
+               </ul>
+               <form action="/notes/aagyaa" method="post">
+                  <button class="micbutton" type="submit" ></button>  
+                  </form> 
+                  <form class="d-flex search-bar" action="https://www.google.com/search" method="get">
+                     <input name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                     <button class="btn btn-outline-success" type="submit">Search</button>
+                   </form>
+               <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="{{url_for('logout')}}">Logout</a>
+                  </li> 
+                </ul>
+            </div>
+         </div>
+      </nav>
+   </header>
+   <nav>
+      <p style="font-size: 30px; font-weight: bold; text-align: center;">
+         Note Taking App
+      </p>
+   </nav>
+   <div class="container my-3">
+      <div class="card-body">
+         <h5 class="card-title">Create Your Note</h5>
+         <div style="display: flex; grid-gap: 18px;">
+            <div class="form-outline w-50 mb-4">
+               <form id="note-form" action="/add_note" method="POST" role="form">
+                  <input type="text" name="note-title" class="form-control" placeholder="Add Title..." required />
+                  <textarea class="form-control" style="margin-top: 10px ;" name="note-text" rows="3" placeholder="Add Notes..." form="note-form" required></textarea>
+                  <!-- <button type="submit" class="btn btn-primary" id="AddNotesBtn"
+                     style="background-color:skyblue;color: black; height: 30px; width: 70px; margin-top: 10px;">
+                     Add
+                  </button> -->
+                  <div class="col-12" style="margin-top:10px;margin-bottom:10px">
+                     <button type="submit"  class="btn btn-primary">Add</button>
+                   </div>
+               </form>
+               
+            </div>
+         </div>
+      </div>
+      <hr>
+      <h3 style="color:rgb(20, 17, 19)"> Your Saved Notes </h3>
+      <hr>
+      <div id="All_item_notes" class="row container-fluid"> </div>
+   </div>
+   <table class="table mb-4">
+      <thead>
+        <tr>
+          <!-- <th scope="col">No.</th> -->
+          <th scope="col">Title</th>
+          <th scope="col">Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for note in notes %}
+        
+        <tr>
+          <!-- <th scope="row">2</th> -->
+          <td>{{note.title}}</td>
+          <td>{{note.text}}</td>
+          <td>
+            <a href="{{url_for('delete_note',oid=note._id)}}">Delete</a>
+            <!-- <button type="submit" href="'/edit_reminder',oid=reminder._id" class="btn btn-danger">Edit</button>
+            <button type="submit" href="'/complete_reminder',oid=reminder._id" class="btn btn-danger">Delete</button> -->
+          </td>
+        </tr>
+        {% endfor %}
+        <!-- <tr>
+          <th scope="row">3</th>
+          <td>Sign up for online course</td>
+          <td>In progress</td>
+          <td>
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="submit" class="btn btn-success ms-1">Finished</button>
+          </td>
+        </tr>  -->
+      </tbody>
+    </table>
+   <!-- <div class="card1" id="idiv">
+      <div class="row g-0">
+        <div class="col-md-20">
+          <div class="card-body">
+            <h5 class="card-title" id="ntitle">Title</h5>
+            <p class="card-text" id="ntext">${notes[index]}</p>
+            <p class="card-text"><small class="text-muted">___________________________________________
+            </small></p>
+         
+        <p></p>
+          </div>
+        </div>
+      </div>
+    </div> -->
+   <br><br><br>
+   <!-- <script>
+    const DisplayTodoList=()=>{
+       let All_item_notes = localStorage.getItem("All_item_notes");
+       if (!All_item_notes) notes = [];
+       else notes = JSON.parse(All_item_notes);
+       let html = "";
+       for(let index=0;index<notes.length;index++) {
+          html +=`<div class="card1" id="idiv">
+          <div class="row g-0">
+            
+            <div class="col-md-20">
+              <div class="card-body">
+                <h5 class="card-title" id="ntitle">Title</h5>
+                <p class="card-text" id="ntext">${notes[index]}</p>
+                <p class="card-text"><small class="text-muted">___________________________________________
+                </small></p>
+             
+            <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br><br><br>`;
+          
+       }
+       let localStorage_Notes = document.getElementById("All_item_notes");
+       if (notes.length == 0)
+          localStorage_Notes.innerHTML = `🙄 No notes for now..`;
+       else
+          localStorage_Notes.innerHTML = html;
+    }
+    document.getElementById("AddNotesBtn").addEventListener("click", ()=>{
+      let todoTitle = document.getElementById("todoTitle");
+       let todoText = document.getElementById("todoText");
+       if(!(todoText.value)){
+          alert("Please write something to create todo.")
+          return;
+       }
+       if(!(todoTitle.value)){
+          alert("Please Add title.")
+          return;
+       }
+       let All_item_notes = localStorage.getItem("All_item_notes");
+       if (!All_item_notes) NoteListObj = [];
+       else
+       NoteListObj = JSON.parse(All_item_notes);
+       console.log(NoteListObj);
+       NoteListObj.push(todoText.value);
+       localStorage.setItem("All_item_notes", JSON.stringify(NoteListObj));
+       todoText.value = "";
+       DisplayTodoList();
+    });
+    const DelNoteItem=(ind)=>{
+       let All_item_notes = localStorage.getItem("All_item_notes");
+       if (All_item_notes != null)
+       notes = JSON.parse(All_item_notes);
+       notes.splice(ind, 1);
+       let str_notes=JSON.stringify(notes);
+       localStorage.setItem("All_item_notes",str_notes);
+       DisplayTodoList();
+    }
+    DisplayTodoList();
+ </script> -->
+
+
+</body>
+
+</html>

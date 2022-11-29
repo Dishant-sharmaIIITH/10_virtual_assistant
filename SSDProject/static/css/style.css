@@ -1,0 +1,39 @@
+.bg-nav{
+
+    /* background-image: G:\sharewu\SSDProject\image\backimagelogin.jpeg; */
+    /* background-image: url('/static/images/backimagelogin.jpeg')     background-image: src="G:\sharewu\SSDProject\image\backimagelogin.jpeg"; */
+    background: #1f4037;  
+    background: -webkit-linear-gradient(to right, #99f2c8, #1f4037); 
+    background: linear-gradient(to right, #99f2c8, #1f4037); 
+
+
+}
+.mt-100{
+    margin-top: 100px;
+}
+.card1{
+    width: 80%;
+    height: fit-content;
+}
+.upper-container{
+    margin-top: 8%;
+}
+.card-image-top{
+    height: 20%;
+
+}
+/* .col-md-8{
+    padding-left: 50px;
+} */
+/* .col-md-4{
+    margin-right: 10px;
+} */
+.me-2{
+    margin-left: 700px;
+}
+.micbutton{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    
+}

@@ -1,0 +1,141 @@
+<html>
+<head>
+   <title>Reminder</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/fontawesome.min.css">
+   <!-- <script  src="index.js"></script> -->
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+   </script>
+   <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/style.css')}}">
+</head>
+<body class="bg-nav">
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/dashboard">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="/dashboard/notes">Notes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dashboard/gmail">Gmail</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/dashboard/showReminder" tabindex="-1" aria-disabled="true">Reminder</a>
+            </li>
+          </ul>
+<form action="/remainder/aagyaa" method="post">
+            <button class="micbutton" type="submit" ></button>  
+         </form> 
+         <form class="d-flex search-bar" action="https://www.google.com/search" method="get">
+          <input name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="{{url_for('logout')}}">Logout</a>
+            </li> 
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+   <nav>
+      <p style="font-size: 30px; font-weight: bold; text-align: center;">
+         Note Taking App
+      </p>
+   </nav>
+   <section class="vh-100" >
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-9 col-xl-7">
+          <div class="card rounded-3">
+            <div class="card-body p-4">
+  
+              <h4 class="text-center my-3 pb-3">Reminder</h4>
+  
+              <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2" id="reminder-form" action="/add_reminder" method="POST" role="form">
+                <div class="col-12">
+                  <div class="form-outline">
+                    <input type="text"  name="reminder-title" class="form-control" placeholder="Add Task here..."/>
+                    <input type="date" style="margin-top: 5px;" name="reminder-date" class="form-control" />
+                    <input type="time" style="margin-top: 5px;" name="reminder-time" class="form-control" />
+                  </div>
+                </div>
+                
+                    <div class="col-12" style="margin-top:10px;margin-bottom:10px">
+                        <button type="submit"  class="btn btn-primary">Save</button>
+                      </div>
+        
+                      <div class="col-12">
+                        <a href="{{url_for('view_complete_reminders')}}">View Completed Reminders</a>
+                      </div>
+
+                     
+
+                
+                
+              </form>
+  
+              <table class="table mb-4">
+                <thead>
+                  <tr>
+                    <!-- <th scope="col">No.</th> -->
+                    <th scope="col">Task</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for reminder in reminders %}
+                  
+                  <tr>
+                    <!-- <th scope="row">2</th> -->
+                    <td>{{reminder.title}}</td>
+                    <td>{{reminder.date}}</td>
+                    <td>{{reminder.time}}</td>
+                    <td>{{reminder.complete}}</td>
+                   
+                    <td>
+                      <a href="{{url_for('delete_reminder',oid=reminder._id)}}">Delete</a>
+                      <a href="{{url_for('edit_reminder',oid=reminder._id)}}">Edit</a>
+                      <a href="{{url_for('complete_reminder',oid=reminder._id)}}">Mark as done</a>
+                      <!-- <button type="submit" href="'/edit_reminder',oid=reminder._id" class="btn btn-danger">Edit</button>
+                      <button type="submit" href="'/complete_reminder',oid=reminder._id" class="btn btn-danger">Delete</button> -->
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  <!-- <tr>
+                    <th scope="row">3</th>
+                    <td>Sign up for online course</td>
+                    <td>In progress</td>
+                    <td>
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                      <button type="submit" class="btn btn-success ms-1">Finished</button>
+                    </td>
+                  </tr>  -->
+                </tbody>
+              </table>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+   <script>
+    
+ </script>
+      
+      
+</body>
+</html
